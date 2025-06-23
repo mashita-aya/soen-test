@@ -2,6 +2,10 @@
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import "../styles/animations.css";
+import "../styles/top.css";
+import "the-new-css-reset";
+
+import mv from "../../public/image/mv.png"
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -9,20 +13,36 @@ import "../styles/animations.css";
 
 <Layout>
 	<!-- <Welcome /> -->
+	<div class="screen-fill">
+		<div class="fill top"></div>
+		<div class="fill bottom"></div>
+	</div>
+	
+	<div class="container">
+		<div class="text-left">
+			<span>D</span><span>R</span><span>I</span><span>V</span><span>I</span><span>N</span><span>G</span>
+		</div>
+		<div class="image-right">
+			<div class="loop-track">
+				<img src={mv.src} alt="" />
+				<img src={mv.src} alt="" />
+				<img src={mv.src} alt="" />
+				<img src={mv.src} alt="" />
+				<img src={mv.src} alt="" />
+				<img src={mv.src} alt="" />
+			</div>
+		</div>
+	</div>
 
-	<h1 class="service__title">
-    <span class="service__title__text">
-      <div>O</div><div>U</div><div>R</div>
-    </span>
-    <span class="service__title__text">
-      <div>S</div><div>E</div><div>R</div><div>V</div><div>I</div><div>C</div><div>E</div><div>S</div>
-    </span>
-  </h1>
-
+	<div class="mv_containers">
+		<canvas id="particles"></canvas>
+		<h1 class="glitch-text" data-text="DRIVING">DRIVING</h1>
+	</div>
 
 	<h2 class="animate-text highlight">
 		<span>一</span><span>文</span><span>字</span><span>ず</span><span>つ</span><span>色</span><span>変</span><span>更</span>
 	</h2>
+
 
 
 	<div class="fade-up-image-pic">

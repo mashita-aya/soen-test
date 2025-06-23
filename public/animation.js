@@ -57,3 +57,40 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.animate-text').forEach(el => {
   observer.observe(el);
 });
+
+ // アニメーションスタート
+ window.addEventListener('DOMContentLoaded', () => {
+  const tl = gsap.timeline();
+
+  tl.from('.headline', {
+    duration: 1,
+    y: 50,
+    opacity: 0,
+    ease: 'bounce.out'
+  }).from('.subheadline', {
+    duration: 0.8,
+    y: 30,
+    opacity: 0,
+    ease: 'power2.out'
+  }, "-=0.5").from('.cta-btn', {
+    duration: 0.6,
+    scale: 0.5,
+    opacity: 0,
+    ease: 'back.out(1.7)'
+  }, "-=0.3");
+});
+
+// ScrollでMVが斜めにスライドアウト
+gsap.to(".mv-container", {
+  scrollTrigger: {
+    trigger: ".mv-container",
+    start: "top top",
+    end: "bottom top",
+    scrub: true,
+    pin: true
+  },
+  xPercent: -20,
+  yPercent: -20,
+  scale: 0.8,
+  ease: "power1.inOut"
+});

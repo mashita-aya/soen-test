@@ -1,0 +1,136 @@
+/* 全体 */
+.screen-fill {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+.fill {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  animation-fill-mode: forwards;
+}
+.fill.top {
+  top: 0;
+  background: #000;
+  animation: fillTopDown 1.5s ease forwards;
+}
+.fill.bottom {
+  bottom: 0;
+  background: #ab4949;
+  animation: fillBottomUp 1.5s ease forwards;
+  animation-delay: 0.1s;
+}
+
+@keyframes fillTopDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+    display: none;
+  }
+}
+@keyframes fillBottomUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+    display: none;
+  }
+}
+
+/* コンテナは画面いっぱい */
+.container {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  padding: 2rem;
+  z-index: 10;
+}
+
+/* 左テキスト */
+.text-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 6vw;
+  font-weight: 700;
+  color: #000;
+}
+.text-left span {
+  opacity: 0;
+  display: inline-block;
+  animation: fadeInUp 0.5s ease forwards;
+}
+.left-text span {
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.left-text span.active {
+  color: red; /* 色を変えたい色 */
+}
+
+.text-left span:nth-child(1) { animation-delay: 1.7s; }
+.text-left span:nth-child(2) { animation-delay: 1.9s; }
+.text-left span:nth-child(3) { animation-delay: 2.1s; }
+.text-left span:nth-child(4) { animation-delay: 2.3s; }
+.text-left span:nth-child(5) { animation-delay: 2.5s; }
+.text-left span:nth-child(6) { animation-delay: 2.7s; }
+.text-left span:nth-child(7) { animation-delay: 2.9s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 右画像 */
+.image-right {
+  width: 40%;
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  animation: fadeInRight 0.8s forwards;
+  animation-delay: 3.5s; /* テキストが終わったあと */
+}
+
+@keyframes fadeInRight {
+  to {
+    opacity: 1;
+  }
+}
+
+/* 画像ループトラック */
+.loop-track {
+  display: flex;
+  flex-direction: column;
+  animation: scrollLoop 20s linear infinite;
+}
+
+.loop-track img {
+  height: calc(100vh / 3);
+  width: 100%;
+  object-fit: cover;
+}
+
+@keyframes scrollLoop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+
+

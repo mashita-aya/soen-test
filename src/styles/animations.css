@@ -20,6 +20,7 @@ html, body {
 }
 
 /* 背景スクロール */
+/* 左から */
 .animate-text {
   display: inline-block;
   position: relative;
@@ -28,7 +29,8 @@ html, body {
   background-image: linear-gradient(to right, #000 100%, #000 100%);
   background-size: 0% 100%;
   background-repeat: no-repeat;
-  background-position: left;
+  /* background-position: left; */
+  background-position: right; /* ← ここを right に */
   animation: markerFill 1.5s forwards;
   animation-delay: 0.2s;
   color:#229b5000;
