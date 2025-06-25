@@ -79,18 +79,3 @@ document.querySelectorAll('.animate-text').forEach(el => {
     ease: 'back.out(1.7)'
   }, "-=0.3");
 });
-
-// ScrollでMVが斜めにスライドアウト
-gsap.to(".mv-container", {
-  scrollTrigger: {
-    trigger: ".mv-container",
-    start: "top top",
-    end: "bottom top",
-    scrub: true,
-    pin: true
-  },
-  xPercent: -20,
-  yPercent: -20,
-  scale: 0.8,
-  ease: "power1.inOut"
-});

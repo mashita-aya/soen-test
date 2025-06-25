@@ -5,50 +5,43 @@ import "../styles/animations.css";
 import "../styles/top.css";
 import "the-new-css-reset";
 
-import mv from "../../public/image/mv.png"
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import img01 from "../../public/image/img01_01.png"
 ---
 
 <Layout>
-	<!-- <Welcome /> -->
-	<div class="screen-fill">
-		<div class="fill top"></div>
-		<div class="fill bottom"></div>
-	</div>
+	<section class="section01">
+		<!-- <div class="animation01">
+			<span class="circle color1">color1</span>
+			<span class="circle color2">color2</span>
+			<span class="circle color3">color3</span>
+			<span class="circle color4">color4</span>
+		</div> -->
+		<ul>
+			<li class="title">title<br>titletitletitle<br>title</li>
+			<li class="mv_pic"><img src={img01.src} alt=""></li>
+		</ul>
+	</section>
+
+	<section class="section02">
+		<ul>
+			<li class="title">
+				<div class="wrapper">
+					<h1 class="hero-title">title</h1>
+				</div>
+			</li>
+			<li class="mv_pic"><img src={img01.src} alt=""></li>
+		</ul>
+	</section>
+
+	<section class="section03">
+		<ul>
+			<li class="title">
+				<div class="drive-brake delay1">DRIVE</div>
+				<div class="drive-brake delay2">DRIVEDRIVE</div>
+				<div class="drive-brake delay3">DRIVE</div>
+			</li>
+		</ul>
+	</section>
 	
-	<div class="container">
-		<div class="text-left">
-			<span>D</span><span>R</span><span>I</span><span>V</span><span>I</span><span>N</span><span>G</span>
-		</div>
-		<div class="image-right">
-			<div class="loop-track">
-				<img src={mv.src} alt="" />
-				<img src={mv.src} alt="" />
-				<img src={mv.src} alt="" />
-				<img src={mv.src} alt="" />
-				<img src={mv.src} alt="" />
-				<img src={mv.src} alt="" />
-			</div>
-		</div>
-	</div>
-
-	<div class="mv_containers">
-		<canvas id="particles"></canvas>
-		<h1 class="glitch-text" data-text="DRIVING">DRIVING</h1>
-	</div>
-
-	<h2 class="animate-text highlight">
-		<span>一</span><span>文</span><span>字</span><span>ず</span><span>つ</span><span>色</span><span>変</span><span>更</span>
-	</h2>
-
-
-
-	<div class="fade-up-image-pic">
-		<img src="your-image.jpg" alt="説明" class="fade-up-image" />
-	</div>
-
-	<section style="height: 100vh;"></section>
 </Layout>
 	

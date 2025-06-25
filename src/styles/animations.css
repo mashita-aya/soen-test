@@ -1,93 +1,119 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
+.animation01 {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: transparent;
 }
 
-
-/* 文字が下から表示 */
-.service__title div {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  display: inline-block;
-}
-
-.service__title div.active {
+.animation01 span {
+  position: absolute;
+  width: 50px;      /* 初期の基準サイズを指定 */
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform-origin: center center;
+  transform: translate(-50%, -50%) scale(0);
   opacity: 1;
-  transform: translateY(0);
 }
 
-/* 背景スクロール */
-/* 左から */
-.animate-text {
-  display: inline-block;
-  position: relative;
-  font-size: 2rem;
-  color: transparent;
-  background-image: linear-gradient(to right, #000 100%, #000 100%);
-  background-size: 0% 100%;
-  background-repeat: no-repeat;
-  /* background-position: left; */
-  background-position: right; /* ← ここを right に */
-  animation: markerFill 1.5s forwards;
+.color1 {
+  background: #ffffff;
+  animation: ripple 1.5s ease-out forwards;
+  animation-delay: 0s;
+}
+.color2 {
+  background: #00ffcc;
+  animation: ripple 1.6s ease-out forwards;
   animation-delay: 0.2s;
-  color:#229b5000;
 }
-.animate-text span {
-  background-size: 0% 100%;
-  background-repeat: no-repeat;
-  background-position: left;
-  display: inline-block;
-  color: black;
-  opacity: 0;
-  transform: translateY(20px);
+.color3 {
+  background: #ff69b4;
+  animation: ripple 1.7s ease-out forwards;
+  animation-delay: 0.4s;
 }
-
-.animate-text span.active {
-  animation: colorFlash 0.6s ease forwards;
+.color4 {
+  background: #00bfff;
+  animation: ripple 1.8s ease-out forwards;
+  animation-delay: 0.6s;
 }
 
-.animate-text.active {
-  animation: markerFill 1.5s ease-out forwards;
-  animation-delay: 1.5s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes markerFill {
-  100% {
-    background-size: 100% 100%;
-  }
-}
-@keyframes colorFlash {
+@keyframes ripple {
   0% {
-    color: #fff;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  30% {
-    color: #00fa27; /* 好きな色 */
+    transform: translate(-50%, -50%) scale(0);
     opacity: 1;
-    transform: translateY(0);
+  }
+  90% {
+    transform: translate(-50%, -50%) scale(100);
+    opacity: 1;
   }
   100% {
-    color: #fff;
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 0;
   }
 }
 
-/* セクションのフェードイン */
-.fade-up-image-pic {
-  width: 500px;
-  height: 100px;
-  background: #000;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+/* アニメーション02 */
+.hero-title {
+  animation: enterSpin 4.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
-.fade-up-image-pic.active {
-  opacity: 1;
-  transform: translateY(0);
+
+@keyframes enterSpin {
+  0% {
+    transform: translateX(-200%) rotate(-360deg) scale(4);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(5%) rotate(10deg) scale(3.1);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(-2%) rotate(-3deg) scale(3.1);
+  }
+  90% {
+    transform: translateX(0%) rotate(-3deg) scale(3.1);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+}
+
+/* 03 */
+.drive-brake {
+  animation: driveExplode 1.6s ease-out forwards;
+}
+
+/* 順番制御 */
+.delay1 { animation-delay: 0s; }
+.delay2 { animation-delay: 0.4s; }
+.delay3 { animation-delay: 0.8s; }
+
+/* 爆走アニメーション */
+@keyframes driveExplode {
+  0% {
+    transform: translateX(-200%) scale(1.8) scaleY(1.3);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  40% {
+    transform: translateX(5%) scale(1.1) scaleY(0.8);
+    opacity: 1;
+    filter: blur(0);
+  }
+  60% {
+    transform: translateX(-2%) scale(1.05) scaleY(1.05);
+    color: #00ffcc;
+    text-shadow:
+      0 0 20px #ffffff,
+      0 0 30px #ff1493,
+      -4px 4px 0 #00ffff;
+  }
+  100% {
+    transform: translateX(0%) scale(1) scaleY(1);
+    opacity: 1;
+    color: #ffffff;
+    text-shadow:
+      0 0 10px #ffffff,
+      -2px 2px 0 #ff1493;
+  }
 }
