@@ -61,7 +61,8 @@ ul {
 .section03 {
   width: 100%;
   height: 100vh;
-background: #ddd;
+  box-sizing: border-box;
+  background: #ddd;
 }
 .drive-brake {
   font-size: 10vw;
@@ -80,3 +81,26 @@ background: #ddd;
   mix-blend-mode: screen;
 }
 
+/* 04 */
+.section04 {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+}
+.infinite-slider {
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  background: #000;
+}
+.slider-track {
+  display: flex;
+  width: calc(250px * 8);
+}
+
+.slider-track img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  flex-shrink: 0;
+}

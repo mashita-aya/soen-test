@@ -83,12 +83,10 @@
   animation: driveExplode 1.6s ease-out forwards;
 }
 
-/* 順番制御 */
 .delay1 { animation-delay: 0s; }
 .delay2 { animation-delay: 0.4s; }
 .delay3 { animation-delay: 0.8s; }
 
-/* 爆走アニメーション */
 @keyframes driveExplode {
   0% {
     transform: translateX(-200%) scale(1.8) scaleY(1.3);
@@ -115,5 +113,19 @@
     text-shadow:
       0 0 10px #ffffff,
       -2px 2px 0 #ff1493;
+  }
+}
+
+/* 04 */
+.slider-track {
+  animation: scroll 15s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
