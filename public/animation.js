@@ -1,4 +1,26 @@
 // public/scroll-highlight.js
+window.addEventListener("DOMContentLoaded", () => {
+  const mv = document.querySelector(".mv");
+  const animation = document.querySelector(".animation01");
+  const circles = animation.querySelectorAll(".circle");
+
+  const mvRect = mv.getBoundingClientRect();
+  const isInView =
+    mvRect.top < window.innerHeight && mvRect.bottom > 0;
+
+  if (isInView) {
+    animation.style.display = "block";
+    circles.forEach(circle => {
+      circle.style.animation = "none";
+      void circle.offsetWidth;
+      circle.style.animation = "";
+    });
+
+    setTimeout(() => {
+      animation.style.display = "none";
+    }, 2500);
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const titles = document.querySelectorAll(".service__title");
