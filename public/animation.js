@@ -1,103 +1,107 @@
-// public/scroll-highlight.js
-window.addEventListener("DOMContentLoaded", () => {
-  const mv = document.querySelector(".mv");
-  const animation = document.querySelector(".animation01");
-  const circles = animation.querySelectorAll(".circle");
+// --- Utility: toggle helper
+function toggleElement({ button, target, className, aria, extra }) {
+  if (!button || !target) return;
+  button.addEventListener("click", () => {
+    const isOpen = target.classList.toggle(className);
+    button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    if (extra) extra(isOpen);
+  });
+}
 
-  const mvRect = mv.getBoundingClientRect();
-  const isInView =
-    mvRect.top < window.innerHeight && mvRect.bottom > 0;
+// --- Smooth scroll
+document.addEventListener("click", (e) => {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link) return;
 
-  if (isInView) {
-    animation.style.display = "block";
-    circles.forEach(circle => {
-      circle.style.animation = "none";
-      void circle.offsetWidth;
-      circle.style.animation = "";
-    });
+  const hash = link.hash;
+  if (!hash || hash === "#") {
+    e.preventDefault();
+    return;
+  }
 
-    setTimeout(() => {
-      animation.style.display = "none";
-    }, 2500);
+  const targetEl = document.getElementById(hash.slice(1));
+  if (!targetEl) return;
+
+  const headerHeight = document.querySelector("header")?.offsetHeight || 0;
+  const position = targetEl.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+  e.preventDefault();
+  window.scrollTo({ top: position, behavior: "smooth" });
+});
+
+// --- DOM elements
+const html = document.documentElement;
+const body = document.querySelector(".body");
+
+// --- Modal
+toggleElement({
+  button: document.querySelector(".dialog-button"),
+  target: document.querySelector(".dialog"),
+  className: "is-dialog-open",
+});
+document.querySelector(".dialog__button")?.addEventListener("click", () => {
+  document.querySelector(".dialog")?.classList.remove("is-dialog-open");
+  document.querySelector(".dialog-button")?.setAttribute("aria-expanded", "false");
+});
+
+// --- Info
+toggleElement({
+  button: document.querySelector(".info-button"),
+  target: body,
+  className: "is-info",
+  extra: (isOpen) => document.querySelector(".info-button")?.classList.toggle("is-footer-active", isOpen),
+});
+
+// --- Reverse
+toggleElement({
+  button: document.querySelector(".reverse-button"),
+  target: body,
+  className: "is-reverse",
+  extra: (isOpen) => document.querySelector(".reverse-button")?.classList.toggle("is-footer-active", isOpen),
+});
+
+// --- Language
+toggleElement({
+  button: document.querySelector(".language-button"),
+  target: body,
+  className: "is-language",
+  aria: true,
+  extra: (isOpen) => {
+    html.setAttribute("lang", isOpen ? "en" : "ja");
+    document.querySelector(".language-button")?.classList.toggle("is-footer-active", isOpen);
   }
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const titles = document.querySelectorAll(".service__title");
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const letters = entry.target.querySelectorAll("div");
-        letters.forEach((el, i) => {
-          setTimeout(() => {
-            el.classList.add("active");
-          }, i * 100);
-        });
+function adjustNameText() {
+  const el = document.getElementById("name");
+  const length = el.textContent.trim().length;
 
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
+  el.classList.remove("large-text", "medium-text", "small-text");
 
-  titles.forEach(title => observer.observe(title));
-});
+  if (length <= 20) {
+    el.classList.add("large-text");
+  } else if (length <= 56) {
+    el.classList.add("medium-text");
+  } else {
+    el.classList.add("small-text");
+  }
+}
 
+function adjustCompanyLetterSpacingAndCut() {
+  const el = document.getElementById("company");
+  const length = el.textContent.trim().length;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const images = document.querySelectorAll(".fade-up-image-pic");
+  el.classList.remove("spacing-wide", "spacing-tight");
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
+  if (length <= 10) {
+    el.classList.add("spacing-wide");
+  } else {
+    el.classList.add("spacing-tight");
+  }
+}
 
-  images.forEach(img => observer.observe(img));
-});
-
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const spans = entry.target.querySelectorAll('span');
-      spans.forEach((span, i) => {
-        setTimeout(() => {
-          span.classList.add('active');
-        }, i * 100); // 一文字ごとに100ms遅延
-      });
-      observer.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: 0.5
-});
-
-document.querySelectorAll('.animate-text').forEach(el => {
-  observer.observe(el);
-});
-
- // アニメーションスタート
- window.addEventListener('DOMContentLoaded', () => {
-  const tl = gsap.timeline();
-
-  tl.from('.headline', {
-    duration: 1,
-    y: 50,
-    opacity: 0,
-    ease: 'bounce.out'
-  }).from('.subheadline', {
-    duration: 0.8,
-    y: 30,
-    opacity: 0,
-    ease: 'power2.out'
-  }, "-=0.5").from('.cta-btn', {
-    duration: 0.6,
-    scale: 0.5,
-    opacity: 0,
-    ease: 'back.out(1.7)'
-  }, "-=0.3");
+window.addEventListener("load", () => {
+  adjustNameText();
+  adjustCompanyLetterSpacingAndCut();
 });

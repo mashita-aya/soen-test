@@ -2,26 +2,117 @@
 import "the-new-css-reset";
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-		<script type="module" src="animation.js"></script>
-	</head>
-	<body>
-		<slot />
-	</body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI Toggle Example</title>
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  header {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: #333; color: white; padding: 10px;
+  }
+  header a { color: white; margin-right: 10px; text-decoration: none; }
+  section { padding: 100px 20px; margin-top: 60px; border-bottom: 1px solid #ccc; }
+  .dialog {
+    position: fixed; inset: 0;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.5);
+  }
+  .dialog.is-dialog-open { display: flex; }
+  .dialog__content {
+    background: white; padding: 20px; border-radius: 6px;
+    max-width: 400px; text-align: center;
+  }
+  footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #eee; padding: 10px; display: flex; gap: 10px; justify-content: center;
+  }
+  .is-footer-active { background: #ddd; }
+  .is-info { background-color: #f0f8ff; }
+  .is-reverse { filter: invert(1); }
+</style>
+</head>
+<body class="body">
+
+<header>
+  <a href="#section1">Section 1</a>
+  <a href="#section2">Section 2</a>
+  <a href="#section3">Section 3</a>
+  <button class="dialog-button" aria-expanded="false">Open Modal</button>
+</header>
+
+<main>
+
+  <section id="section1"><h2>Section 1</h2><p>Some content here...</p></section>
+  <section id="section2"><h2>Section 2</h2><p>Some content here...</p></section>
+	<div class="card">
+		<div class="name" id="name">日本太郎</div>
+		<div class="company" id="company">会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名会社会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名名</div>
+	</div>
+  <section id="section3"><h2>Section 3</h2><p>Some content here...</p></section>
+</main>
+
+<!-- Modal -->
+<div class="dialog" role="dialog" aria-modal="true">
+  <div class="dialog__content">
+    <p>This is a modal window</p>
+    <button class="dialog__button">Close</button>
+  </div>
+</div>
+
+<footer>
+  <button class="info-button" aria-expanded="false">Info</button>
+  <button class="reverse-button" aria-expanded="false">Reverse</button>
+  <button class="language-button" aria-expanded="false">Language</button>
+</footer>
+
+</body>
+<script src="../../public/animation"></script>
 </html>
 
+
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+	/* 基本 */.company {
+		padding: 0 14px;
+  white-space: nowrap;
+  overflow: hidden;
+	text-align: center;
+  max-width: 90%;
+	font-size: 16px;
+}
+.company.spacing-wide {
+  letter-spacing: 0.04em;
+}
+.company.spacing-tight {
+  letter-spacing: -2px;
+}
+	.name {
+  white-space: normal; /* nowrapを外す */
+  overflow: hidden;
+  text-align: center;
+  max-width: 100%;
+  max-height: calc(1.2em * 5); /* 4行分の高さ */
+}
+.name.large-text {
+  font-size: 21px;
+  letter-spacing: 0px;
+  /* max-height: calc(1.2em * 2); */
+}
+
+.name.medium-text {
+  font-size: 21px;
+  letter-spacing: 2px;
+  /* max-height: calc(1.2em * 4); */
+}
+
+.name.small-text {
+  font-size: 21px;
+  letter-spacing: -2px;
+  /* max-height: calc(1.2em * 4); */
+}
+
+
 </style>
