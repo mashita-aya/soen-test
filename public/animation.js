@@ -53,24 +53,50 @@ toggleElement({
 });
 
 // --- Reverse
-toggleElement({
-  button: document.querySelector(".reverse-button"),
-  target: body,
-  className: "is-reverse",
-  extra: (isOpen) => document.querySelector(".reverse-button")?.classList.toggle("is-footer-active", isOpen),
-});
+{
+  const button = document.querySelector(".reverse-button");
+  let isRotated = false; // 状態保持用
+
+  if (button) {
+    button.addEventListener("click", () => {
+      const isOpen = body.classList.contains("is-reverse");
+      if (isOpen) {
+        body.classList.remove("is-reverse");
+        button.classList.remove("is-footer-active");
+        button.setAttribute("aria-expanded", "false");
+      } else {
+        body.classList.add("is-reverse");
+        button.classList.add("is-footer-active");
+        button.setAttribute("aria-expanded", "true");
+      }
+      // transform 切り替え
+      isRotated = !isRotated;
+      body.style.transform = isRotated ? "rotate(180deg)" : "rotate(0deg)";
+    });
+  }
+}
 
 // --- Language
-toggleElement({
-  button: document.querySelector(".language-button"),
-  target: body,
-  className: "is-language",
-  aria: true,
-  extra: (isOpen) => {
-    html.setAttribute("lang", isOpen ? "en" : "ja");
-    document.querySelector(".language-button")?.classList.toggle("is-footer-active", isOpen);
+{
+  const button = document.querySelector(".language-button");
+  if (button) {
+    button.addEventListener("click", () => {
+      const isOpen = body.classList.contains("is-language");
+      if (isOpen) {
+        body.classList.remove("is-language");
+        html.setAttribute("lang", "ja");
+        button.classList.remove("is-footer-active");
+        button.setAttribute("aria-expanded", "false");
+      } else {
+        body.classList.add("is-language");
+        html.setAttribute("lang", "en");
+        button.classList.add("is-footer-active");
+        button.setAttribute("aria-expanded", "true");
+      }
+    });
   }
-});
+}
+
 
 
 function adjustNameText() {
