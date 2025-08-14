@@ -52,52 +52,52 @@ toggleElement({
   extra: (isOpen) => document.querySelector(".info-button")?.classList.toggle("is-footer-active", isOpen),
 });
 
-// --- Reverse
-{
-  const button = document.querySelector(".reverse-button");
-  let isRotated = false; // 状態保持用
+// const body = document.querySelector("body");
+// const html = document.documentElement;
 
-  if (button) {
-    button.addEventListener("click", () => {
-      const isOpen = body.classList.contains("is-reverse");
-      if (isOpen) {
-        body.classList.remove("is-reverse");
-        button.classList.remove("is-footer-active");
-        button.setAttribute("aria-expanded", "false");
-      } else {
-        body.classList.add("is-reverse");
-        button.classList.add("is-footer-active");
-        button.setAttribute("aria-expanded", "true");
-      }
-      // transform 切り替え
-      isRotated = !isRotated;
-      body.style.transform = isRotated ? "rotate(180deg)" : "rotate(0deg)";
-    });
-  }
+let isFlippedX = false; // 左右反転状態
+let isFlippedY = false; // 上下反転状態
+function applyTransform() {
+  const transforms = [];
+  // if (isFlippedY) transforms.push("scaleY(-1)");
+  if (isFlippedY) transforms.push("rotateZ(-180deg)"); // 上下反転
+  if (isFlippedX) transforms.push("rotateY(180deg)");  // 左右反転
+  body.style.transform = transforms.join(" ");
 }
-
-// --- Language
+// --- Language Button
 {
   const button = document.querySelector(".language-button");
   if (button) {
+    button.setAttribute("aria-expanded", "false");
     button.addEventListener("click", () => {
-      const isOpen = body.classList.contains("is-language");
-      if (isOpen) {
-        body.classList.remove("is-language");
-        html.setAttribute("lang", "ja");
-        button.classList.remove("is-footer-active");
-        button.setAttribute("aria-expanded", "false");
-      } else {
-        body.classList.add("is-language");
-        html.setAttribute("lang", "en");
-        button.classList.add("is-footer-active");
-        button.setAttribute("aria-expanded", "true");
-      }
+      isFlippedX = !isFlippedX;
+      button.classList.toggle("is-footer-active", isFlippedX);
+      button.setAttribute("aria-expanded", isFlippedX ? "true" : "false");
+
+      html.setAttribute("lang", isFlippedX ? "en" : "ja");
+
+      applyTransform();
     });
   }
 }
 
+// --- Reverse Button
+{
+  const button = document.querySelector(".reverse-button");
+  if (button) {
+    button.setAttribute("aria-expanded", "false");
+    button.addEventListener("click", () => {
+      isFlippedY = !isFlippedY;
+      button.classList.toggle("is-footer-active", isFlippedY);
+      button.setAttribute("aria-expanded", isFlippedY ? "true" : "false");
 
+      applyTransform();
+    });
+  }
+}
+
+// 初期化
+applyTransform();
 
 function adjustNameText() {
   const el = document.getElementById("name");
@@ -131,3 +131,28 @@ window.addEventListener("load", () => {
   adjustNameText();
   adjustCompanyLetterSpacingAndCut();
 });
+
+
+function updateClock() {
+  const now = new Date();
+
+  // 年月日
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const date = String(now.getDate()).padStart(2, "0");
+
+  // 時刻
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+
+  // 表示内容
+  document.getElementById("clock").textContent =
+    `${year}-${month}-${date}  ${hours}:${minutes}:${seconds}`;
+}
+
+// 初回実行
+updateClock();
+
+// 1秒ごとに更新
+setInterval(updateClock, 1000);

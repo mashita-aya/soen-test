@@ -8,8 +8,16 @@ import "the-new-css-reset";
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UI Toggle Example</title>
+
+
 <style>
-  body { margin: 0; font-family: sans-serif; }
+  html {
+  
+  }
+  body {  
+    transition: transform 0.6s ease; /* アニメーションを滑らかに */
+    transform-style: preserve-3d;
+  }
   header {
     position: fixed; top: 0; left: 0; right: 0;
     background: #333; color: white; padding: 10px;
@@ -31,7 +39,8 @@ import "the-new-css-reset";
     background: #eee; padding: 10px; display: flex; gap: 10px; justify-content: center;
   }
   .is-footer-active { background: #ddd; }
-  .is-info { background-color: #f0f8ff; }
+  .is-info { background-color: #f0f8ff;
+   }
   .is-reverse { filter: invert(1); }
 </style>
 </head>
@@ -45,10 +54,10 @@ import "the-new-css-reset";
 </header>
 
 <main>
-
   <section id="section1"><h2>Section 1</h2><p>Some content here...</p></section>
   <section id="section2"><h2>Section 2</h2><p>Some content here...</p></section>
 	<div class="card">
+    <div class="clock" id="clock">ああ</div>
 		<div class="name" id="name">日本太郎</div>
 		<div class="company" id="company">会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名会社会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名会社名名</div>
 	</div>
