@@ -9,24 +9,47 @@ function toggleElement({ button, target, className, aria, extra }) {
 }
 
 // --- Smooth scroll
-document.addEventListener("click", (e) => {
-  const link = e.target.closest('a[href^="#"]');
-  if (!link) return;
+// スムーススクロール（.reverse-button の有無で通常／逆を切替）
+document.addEventListener("click", function (e) {
+  const target = e.target.closest('a[href^="#"]');
+  if (!target) return;
 
-  const hash = link.hash;
+  const hash = target.hash;
   if (!hash || hash === "#") {
     e.preventDefault();
     return;
   }
 
-  const targetEl = document.getElementById(hash.slice(1));
-  if (!targetEl) return;
+  const id = hash.slice(1);
+  const targetElement = document.getElementById(id);
+  if (!targetElement) return;
 
-  const headerHeight = document.querySelector("header")?.offsetHeight || 0;
-  const position = targetEl.getBoundingClientRect().top + window.scrollY - headerHeight;
+  const header = document.querySelector("header");
+  const headerHeight = header ? header.offsetHeight : 0;
+
+  // 通常スクロールの位置（上からの距離）
+  const normalPos =
+    targetElement.getBoundingClientRect().top +
+    window.pageYOffset -
+    headerHeight;
+
+  // 🔄 .reverse-button があるかどうかで切替
+  const isInvertedScroll = document.querySelector(".reverse-button") !== null;
+
+  let scrollTarget = normalPos;
+
+  if (isInvertedScroll) {
+    const docHeight = document.documentElement.scrollHeight;
+    const winHeight = window.innerHeight;
+    scrollTarget = docHeight - winHeight - normalPos;
+  }
+
+  window.scrollTo({
+    top: scrollTarget,
+    behavior: "smooth",
+  });
 
   e.preventDefault();
-  window.scrollTo({ top: position, behavior: "smooth" });
 });
 
 // --- DOM elements
