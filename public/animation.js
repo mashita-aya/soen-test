@@ -8,8 +8,7 @@ function toggleElement({ button, target, className, aria, extra }) {
   });
 }
 
-// --- Smooth scroll
-// スムーススクロール（.reverse-button の有無で通常／逆を切替）
+// スムーススクロール
 document.addEventListener("click", function (e) {
   const target = e.target.closest('a[href^="#"]');
   if (!target) return;
@@ -27,31 +26,35 @@ document.addEventListener("click", function (e) {
   const header = document.querySelector("header");
   const headerHeight = header ? header.offsetHeight : 0;
 
-  // 通常スクロールの位置（上からの距離）
-  const normalPos =
+  // 通常のスクロール位置
+  const targetPosition =
     targetElement.getBoundingClientRect().top +
     window.pageYOffset -
     headerHeight;
 
-  // 🔄 .reverse-button があるかどうかで切替
-  const isInvertedScroll = document.querySelector(".reverse-button") !== null;
+  // body に is-reverse が付いているかチェック
+  const body = document.getElementById("body");
+  let scrollTop = targetPosition;
 
-  let scrollTarget = normalPos;
-
-  if (isInvertedScroll) {
+  if (body && body.classList.contains("is-reverse")) {
+    // 上下反転時のスクロール位置を計算
     const docHeight = document.documentElement.scrollHeight;
     const winHeight = window.innerHeight;
-    scrollTarget = docHeight - winHeight - normalPos;
+    scrollTop = docHeight - targetPosition - winHeight;
   }
 
+  // スムーススクロール実行
   window.scrollTo({
-    top: scrollTarget,
+    top: scrollTop,
     behavior: "smooth",
   });
 
   e.preventDefault();
 });
-
+ // 回転・提示切替
+ document.getElementById("toggle-reverse").addEventListener("click", function() {
+  document.body.classList.toggle("is-reverse");
+});
 // --- DOM elements
 const html = document.documentElement;
 const body = document.querySelector(".body");
